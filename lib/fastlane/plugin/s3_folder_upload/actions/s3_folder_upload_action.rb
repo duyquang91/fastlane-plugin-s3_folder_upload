@@ -83,17 +83,14 @@ module Fastlane
       def self.available_options
         [
           FastlaneCore::ConfigItem.new(key: :folder_path,
-                                  env_name: "N/A",
                                description: "Folder path to upload",
                                   optional: false,
                                       type: String),
           FastlaneCore::ConfigItem.new(key: :bucket,
-                                  env_name: "N/A",
                                description: "AWS S3 Bucket to upload",
                                   optional: false,
                                       type: String),
           FastlaneCore::ConfigItem.new(key: :region,
-                                  env_name: "N/A",
                                description: "AWS S3 Region of Bucket to upload",
                                   optional: false,
                                       type: String),
@@ -108,20 +105,20 @@ module Fastlane
                                   optional: true,
                                       type: String),
           FastlaneCore::ConfigItem.new(key: :include_folder,
-                                  env_name: "N/A",
-                               description: "Upload files in sub-folder or not. Default is true",
+                               description: "Upload files in sub-folder or not",
                                   optional: true,
-                                      type: String),
+                                      type: Bool,
+                             default_value: true),
           FastlaneCore::ConfigItem.new(key: :thread_count,
-                                  env_name: "N/A",
-                               description: "Number of thread to upload files. Default is 5",
+                               description: "Number of thread to upload files",
                                   optional: true,
-                                      type: Integer),
+                                      type: Integer,
+                             default_value: 5),
           FastlaneCore::ConfigItem.new(key: :verbose,
-                                  env_name: "N/A",
-                               description: "Puts message while uploading files. Default is true",
+                               description: "Puts message while uploading files",
                                   optional: true,
-                                      type: Integer)
+                                      type: Bool,
+                             default_value: true)
         ]
       end
 
