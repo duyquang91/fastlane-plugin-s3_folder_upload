@@ -14,16 +14,16 @@ module Fastlane
         })
 
         # Variables
-        @folder_path       = params[:folder_path]
-        @bucket            = params[:bucket]
-        @files             = Dir.glob("#{folder_path}/**/*")
-        @total_files       = files.length
-        @connection        = Aws::S3::Resource.new
-        @s3_bucket         = @connection.bucket(bucket)
-        @include_folder    = params[:include_folder] || true
-        @thread_count      = params[:thread_count] || 5
-        @simulate          = false
-        @verbose           = params[:verbose] || true
+        folder_path       = params[:folder_path]
+        bucket            = params[:bucket]
+        files             = Dir.glob("#{folder_path}/**/*")
+        total_files       = files.length
+        connection        = Aws::S3::Resource.new
+        s3_bucket         = @connection.bucket(bucket)
+        include_folder    = params[:include_folder] || true
+        thread_count      = params[:thread_count] || 5
+        simulate          = false
+        verbose           = params[:verbose] || true
         file_number        = 0
         mutex              = Mutex.new
         threads            = []

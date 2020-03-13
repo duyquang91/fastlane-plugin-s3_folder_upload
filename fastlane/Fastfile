@@ -1,3 +1,4 @@
 lane :test do
-  s3_folder_upload
+  s3_folder_upload(folder_path: "READMES-IOS", bucket: ENV['S3_BUCKET'], region: ENV['S3_REGION'])
+
 end
