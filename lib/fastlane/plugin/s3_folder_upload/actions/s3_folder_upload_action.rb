@@ -107,7 +107,7 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :include_folder,
                                description: "Upload files in sub-folder or not",
                                   optional: true,
-                                      type: Bool,
+                                      type: Boolean,
                              default_value: true),
           FastlaneCore::ConfigItem.new(key: :thread_count,
                                description: "Number of thread to upload files",
@@ -117,7 +117,7 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :verbose,
                                description: "Puts message while uploading files",
                                   optional: true,
-                                      type: Bool,
+                                      type: Boolean,
                              default_value: true)
         ]
       end
