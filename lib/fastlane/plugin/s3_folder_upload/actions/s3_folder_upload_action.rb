@@ -6,11 +6,14 @@ module Fastlane
   module Actions
     class S3FolderUploadAction < Action
       def self.run(params)
+
+        # AWS authentication
         Aws.config.update({
           region: params[:region],
           credentials: Aws::Credentials.new(params[:aws_key] || EVN['AWS_ACCESS_KEY_ID'], params[:aws_secret] || EVN['AWS_SECRET_ACCESS_KEY'])
         })
 
+        # Variables
         @folder_path       = params[:folder_path]
         @bucket            = params[:bucket]
         @files             = Dir.glob("#{folder_path}/**/*")
@@ -18,10 +21,9 @@ module Fastlane
         @connection        = Aws::S3::Resource.new
         @s3_bucket         = @connection.bucket(bucket)
         @include_folder    = params[:include_folder] || true
-
-        thread_count       = params[:thread_count] || 5
-        simulate           = false
-        verbose            = params[:verbose] || true
+        @thread_count      = params[:thread_count] || 5
+        @simulate          = false
+        @verbose           = params[:verbose] || true
         file_number        = 0
         mutex              = Mutex.new
         threads            = []
@@ -120,7 +122,7 @@ module Fastlane
                                   env_name: "N/A",
                                description: "Puts message while uploading files. Default is true",
                                   optional: true,
-                                      type: Integer)                                                                                                                                                                                                                                                     
+                                      type: Integer)
         ]
       end
 
