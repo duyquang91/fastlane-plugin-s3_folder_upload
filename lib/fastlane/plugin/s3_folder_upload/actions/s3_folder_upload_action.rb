@@ -10,7 +10,7 @@ module Fastlane
         # AWS authentication
         Aws.config.update({
           region: params[:region],
-          credentials: Aws::Credentials.new(params[:aws_key] || EVN['AWS_ACCESS_KEY_ID'], params[:aws_secret] || EVN['AWS_SECRET_ACCESS_KEY'])
+          credentials: Aws::Credentials.new(params[:aws_key] || ENV['AWS_ACCESS_KEY_ID'], params[:aws_secret] || ENV['AWS_SECRET_ACCESS_KEY'])
         })
 
         # Variables
