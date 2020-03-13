@@ -2,25 +2,47 @@
 
 [![fastlane Plugin Badge](https://rawcdn.githack.com/fastlane/fastlane/master/fastlane/assets/plugin-badge.svg)](https://rubygems.org/gems/fastlane-plugin-s3_folder_upload)
 
+![](header.png)
+
 ## Getting Started
 
-This project is a [_fastlane_](https://github.com/fastlane/fastlane) plugin. To get started with `fastlane-plugin-s3_folder_upload`, add it to your project by running:
+This project is a [_fastlane_](https://github.com/fastlane/fastlane) plugin. To get started with `s3_folder_upload`, add it to your ***fastlane/Pluginfile***:
 
 ```bash
-fastlane add_plugin s3_folder_upload
+gem "fastlane-plugin-s3_folder_upload", git: "https://github.com/duyquang91/fastlane-plugin-s3_folder_upload"
+```
+Then install the plugin by this command:
+```bash
+$ bundle exec fastlane update_plugins
 ```
 
 ## About s3_folder_upload
+By default, [aws-sdk-s3](https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadObjSingleOpRuby.html) only support uploading a single file. This fastlane plugin was born to help you upload all files of a folder to S3 easily.
 
-Upload all files inside a folder to AWS S3
+## Available options
 
-**Note to author:** Add a more detailed description about this plugin here. If your plugin contains multiple actions, make sure to mention them here.
+| Parameter | Description | Environment variable | Default value |
+|-----------|-------------|----------------------|---------------|
+|aws_key | AWS Access key for authentication | AWS_ACCESS_KEY_ID | |
+|aws_secret | AWS Access secret for authentication | AWS_SECRET_ACCESS_KEY | |
+| bucket | AWS S3 Bucket to upload | | |
+| region | AWS S3 Region of Bucket to upload | | |
+| folder_path | Folder path to upload | | |
+| include_folder | Upload files in sub-folders or not | | true |
+| thread_count | Number of thread to upload files | | 5 |
+| verbose | Puts message while uploading files | | true |
 
-## Example
+To get more available options, please run this command:
+```bash
+$ bundle exec fastlane action s3_folder_upload
+```
 
-Check out the [example `Fastfile`](fastlane/Fastfile) to see how to use this plugin. Try it by cloning the repo, running `fastlane install_plugins` and `bundle exec fastlane test`.
-
-**Note to author:** Please set up a sample project to make it easy for users to explore what your plugin does. Provide everything that is necessary to try out the plugin in this project (including a sample Xcode/Android project if necessary)
+Example:
+```bash
+s3_folder_upload(folder_path: "Builds",
+                      bucket: "My-Bucket",
+                      region: "ap-southeast-1")
+```
 
 ## Run tests for this plugin
 
