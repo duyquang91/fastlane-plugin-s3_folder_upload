@@ -19,7 +19,7 @@ module Fastlane
         files             = Dir.glob("#{folder_path}/**/*")
         total_files       = files.length
         connection        = Aws::S3::Resource.new
-        s3_bucket         = @connection.bucket(bucket)
+        s3_bucket         = connection.bucket(bucket)
         include_folder    = params[:include_folder] || true
         thread_count      = params[:thread_count] || 5
         simulate          = false
