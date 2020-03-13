@@ -47,7 +47,7 @@ module Fastlane
                 path = file.sub(/^#{folder_path}\//, '')
               end
 
-              puts "[#{Thread.current["file_number"]}/#{total_files}] uploading..." if verbose
+              puts "[#{Thread.current["file_number"]}/#{total_files}] Uploading: #{path} ..." if verbose
 
               data = File.open(file)
 
