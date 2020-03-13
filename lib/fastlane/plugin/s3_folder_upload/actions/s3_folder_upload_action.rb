@@ -62,7 +62,6 @@ module Fastlane
         end
         threads.each { |t| t.join }
       end
-      end
 
       def self.description
         "Upload all files inside a folder to AWS S3"
