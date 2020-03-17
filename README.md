@@ -28,6 +28,7 @@ By default, [aws-sdk-s3](https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadO
 | bucket | AWS S3 Bucket to upload | | |
 | region | AWS S3 Region of Bucket to upload | | |
 | folder_path | Folder path to upload | | |
+| create_bucket | Create a new bucket with given region in case the given bucket is not found | | true |
 | include_folder | Upload files in sub-folders or not | | true |
 | thread_count | Number of thread to upload files | | 5 |
 | verbose | Puts message while uploading files | | true |

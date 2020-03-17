@@ -8,17 +8,34 @@ module Fastlane
       def self.run(params)
 
         # AWS authentication
+        region            = params[:region]
         Aws.config.update({
-          region: params[:region],
+          region: region,
           credentials: Aws::Credentials.new(params[:aws_key] || ENV['AWS_ACCESS_KEY_ID'], params[:aws_secret] || ENV['AWS_SECRET_ACCESS_KEY'])
         })
 
+        # Validating buckets
+        create_bucket     = params[:create_bucket] || true
+        bucket            = params[:bucket]
+        connection        = Aws::S3::Resource.new
+        buckets           = connection.buckets
+        buckets.each { |found_bucket|
+          puts "Available bucket: #{found_bucket.name}"
+        }
+
+        # Creating bucket if needed
+        if buckets.map { |e| e.name  }.include?(bucket)
+          puts "Bucket: #{bucket} is found. Continue uploading files ..."
+        elsif create_bucket
+          puts "Creating new bucket: #{bucket} with region: #{region} ..."
+          connection.create_bucket(bucket)
+        else
+          puts "No bucket found! Please run with option create_bucket is true to create a new bucket!"
+
         # Variables
         folder_path       = params[:folder_path]
-        bucket            = params[:bucket]
         files             = Dir.glob("#{folder_path}/**/*")
         total_files       = files.length
-        connection        = Aws::S3::Resource.new
         s3_bucket         = connection.bucket(bucket)
         include_folder    = params[:include_folder] || true
         thread_count      = params[:thread_count] || 5
@@ -104,10 +121,15 @@ module Fastlane
                                description: "AWS Access secret for authentication",
                                   optional: true,
                                       type: String),
+          FastlaneCore::ConfigItem.new(key: :create_bucket,
+                               description: "Create a new bucket with given region in case the given bucket is not found",
+                                  optional: true,
+                                      type: Boolean,
+                             default_value: true)
           FastlaneCore::ConfigItem.new(key: :include_folder,
                                description: "Upload files in sub-folder or not",
                                   optional: true,
-                                 is_string: false,
+                                      type: Boolean,
                              default_value: true),
           FastlaneCore::ConfigItem.new(key: :thread_count,
                                description: "Number of thread to upload files",
@@ -117,7 +139,7 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :verbose,
                                description: "Puts message while uploading files",
                                   optional: true,
-                                 is_string: false,
+                                      type: Boolean,
                              default_value: true)
         ]
       end
