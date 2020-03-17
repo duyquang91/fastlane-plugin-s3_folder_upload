@@ -31,6 +31,7 @@ module Fastlane
           connection.create_bucket(bucket)
         else
           puts "No bucket found! Please run with option create_bucket is true to create a new bucket!"
+        end
 
         # Variables
         folder_path       = params[:folder_path]
