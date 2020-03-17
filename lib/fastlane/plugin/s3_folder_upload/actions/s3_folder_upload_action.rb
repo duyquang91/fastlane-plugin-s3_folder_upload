@@ -125,7 +125,7 @@ module Fastlane
                                description: "Create a new bucket with given region in case the given bucket is not found",
                                   optional: true,
                                       type: Boolean,
-                             default_value: true)
+                             default_value: true),
           FastlaneCore::ConfigItem.new(key: :include_folder,
                                description: "Upload files in sub-folder or not",
                                   optional: true,
