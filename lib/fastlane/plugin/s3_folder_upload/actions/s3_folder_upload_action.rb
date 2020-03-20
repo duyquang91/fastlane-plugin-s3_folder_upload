@@ -17,7 +17,7 @@ module Fastlane
         # Validating buckets
         create_bucket     = params[:create_bucket] || true
         bucket            = params[:bucket]
-        connection        = Aws::S3::Resource.new
+        connection        = Aws::S3::Resource.new(region: region)
         buckets           = connection.buckets
         buckets.each { |found_bucket|
           puts "Available bucket: #{found_bucket.name}"
@@ -28,7 +28,7 @@ module Fastlane
           puts "Bucket: #{bucket} is found. Continue uploading files ..."
         elsif create_bucket
           puts "Creating new bucket: #{bucket} with region: #{region} ..."
-          connection.create_bucket(bucket)
+          connection.create_bucket(bucket: bucket)
         else
           puts "No bucket found! Please run with option create_bucket is true to create a new bucket!"
         end
