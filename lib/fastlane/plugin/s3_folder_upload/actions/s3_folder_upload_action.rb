@@ -71,7 +71,7 @@ module Fastlane
 
               unless File.directory?(data) || simulate
                 obj = s3_bucket.object(path)
-                obj.put({ acl: "public-read", body: data })
+                obj.put({ acl: "public-read", body: data, content_type: params[:content_type] })
               end
 
               data.close
@@ -104,6 +104,10 @@ module Fastlane
                                description: "Folder path to upload",
                                   optional: false,
                                       type: String),
+          FastlaneCore::ConfigItem.new(key: :content_type,
+                               description: "Content type while uploading the file",
+                                  optional: true,
+                                      type: String),                            
           FastlaneCore::ConfigItem.new(key: :bucket,
                                description: "AWS S3 Bucket to upload",
                                   optional: false,
